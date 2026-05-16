@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>求职导航官 - 港中深</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #6B2D8E; --purple-light: #8B5CAA; --purple-bg: #F7F2FA;
+    --gold: #C8962E; --gold-light: #F5E6C8;
+    --text: #1a1a2e; --text-muted: #6B6080;
+    --bg: #FAF8FC; --card: #FFFFFF; --border: #E8E0F0;
+    --radius: 14px; --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    height: 100vh; overflow: hidden; display: flex;
+  }
+
+  /* ===== PROFILE PANEL (LEFT) ===== */
+  .profile {
+    width: 300px; min-width: 300px;
+    background: var(--card); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .p-top {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logos { display: flex; gap: 6px; align-items: center; }
+  .logo {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px;
+  }
+  .logo.cuhk { background: var(--purple); color: #fff; }
+  .logo.sfi { background: var(--gold); color: var(--purple); }
+  .p-person {
+    padding: 20px 18px 16px; display: flex; gap: 12px; align-items: center;
+  }
+  .p-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple));
+    color: #fff; font-size: 22px; font-weight: 300;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .p-name { font-size: 16px; font-weight: 700; }
+  .p-meta { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .p-badge {
+    display: inline-block; background: var(--purple-bg); color: var(--purple);
+    font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-top: 3px;
+    font-weight: 500;
+  }
+
+  .p-body { flex: 1; overflow-y: auto; padding: 4px 18px 12px; }
+  .p-group { margin-bottom: 14px; }
+  .p-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-muted); font-weight: 600; margin-bottom: 4px;
+  }
+  .p-val {
+    font-size: 13px; color: var(--text); line-height: 1.5;
+    padding: 6px 10px; background: var(--bg); border-radius: var(--radius-sm);
+  }
+  .p-val.compact { font-size: 12px; padding: 4px 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 500;
+  }
+  .tag.p { background: var(--purple-bg); color: var(--purple); }
+  .tag.g { background: var(--gold-light); color: #8B6914; }
+  .tag.goal {
+    background: var(--purple); color: #fff; font-weight: 600;
+  }
+  .gap-row { font-size: 11px; color: var(--text-muted); padding: 3px 0; }
+  .gap-row::before { content: '⚠ '; }
+
+  .p-foot {
+    padding: 14px 18px; border-top: 1px solid var(--border);
+  }
+  .btn-up {
+    width: 100%; padding: 10px;
+    border: 2px dashed var(--purple-light); background: var(--purple-bg);
+    color: var(--purple); border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: inherit; transition: all 0.2s;
+  }
+  .btn-up:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  /* ===== CHAT PANEL (RIGHT) ===== */
+  .chat {
+    flex: 1; display: flex; flex-direction: column; min-width: 0;
+  }
+  .c-top {
+    padding: 12px 20px; border-bottom: 1px solid var(--border);
+    background: var(--card); display: flex; align-items: center; gap: 10px;
+  }
+  .c-ai-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .c-title { font-weight: 600; font-size: 14px; }
+  .c-sub { font-size: 11px; color: var(--text-muted); }
+
+  .c-msgs {
+    flex: 1; overflow-y: auto; padding: 20px 28px;
+    display: flex; flex-direction: column; gap: 16px;
+    background: linear-gradient(180deg, var(--bg) 0%, #F3EFF7 100%);
+  }
+  .msg {
+    display: flex; gap: 10px; max-width: 75%;
+    animation: in 0.25s ease;
+  }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .msg.me { align-self: flex-end; flex-direction: row-reverse; }
+  .m-av {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+  }
+  .m-av.ai { background: linear-gradient(135deg, var(--purple), var(--gold)); color: #fff; }
+  .m-av.me { background: var(--purple-bg); color: var(--purple); font-weight: 700; }
+  .m-bub {
+    padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.6;
+  }
+  .msg.ai .m-bub { background: var(--card); border: 1px solid var(--border); border-top-left-radius: 3px; }
+  .msg.me .m-bub { background: var(--purple); color: #fff; border-top-right-radius: 3px; }
+
+  .m-bub .hl { background: var(--gold-light); color: #8B6914; padding: 1px 5px; border-radius: 3px; font-weight: 500; }
+
+  .m-card {
+    display: block; margin-top: 8px; padding: 10px 12px;
+    background: var(--purple-bg); border-radius: 10px;
+    font-size: 12.5px; line-height: 1.5;
+    border-left: 3px solid var(--purple); cursor: pointer; transition: all 0.15s;
+  }
+  .m-card:hover { border-left-color: var(--gold); background: #EEE4F5; }
+  .m-card .score {
+    display: inline-block; padding: 1px 7px; background: var(--gold);
+    color: #fff; border-radius: 8px; font-size: 10px; font-weight: 700; margin-left: 6px;
+  }
+  .m-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 2px; }
+  .m-act {
+    font-size: 12px; padding: 8px 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: #fff; cursor: pointer;
+    color: var(--text); text-align: left; font-family: inherit; transition: all 0.15s;
+  }
+  .m-act:hover { border-color: var(--purple); background: var(--purple-bg); }
+
+  .c-input-area { padding: 14px 20px 16px; background: var(--card); border-top: 1px solid var(--border); }
+  .c-input-row { display: flex; gap: 8px; align-items: flex-end; }
+  .c-input {
+    flex: 1; border: 2px solid var(--border); border-radius: 20px;
+    padding: 10px 16px; font-size: 13px; font-family: inherit;
+    resize: none; outline: none; background: var(--bg);
+    transition: border-color 0.2s; max-height: 100px;
+  }
+  .c-input:focus { border-color: var(--purple); }
+  .c-send {
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: var(--purple); color: #fff; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .c-send:hover { background: var(--purple-light); }
+  .c-chips { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .c-chip {
+    font-size: 11px; padding: 5px 12px; border-radius: 14px;
+    border: 1px solid var(--border); background: #fff; cursor: pointer;
+    color: var(--text-muted); font-family: inherit; transition: all 0.15s;
+  }
+  .c-chip:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-bg); }
+
+  @media (max-width: 768px) {
+    .profile { display: none; }
+    .msg { max-width: 88%; }
+    .c-msgs { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LEFT: PROFILE -->
+<aside class="profile">
+  <div class="p-top">
+    <div class="logos">
+      <span class="logo cuhk">CUHK-SZ</span>
+      <span class="logo sfi">SFI</span>
+    </div>
+  </div>
+  <div class="p-person">
+    <div class="p-avatar">张</div>
+    <div>
+      <div class="p-name">张宏明</div>
+      <div class="p-meta">男 · 24岁 · 深圳</div>
+      <div class="p-badge">金融学硕士 · 研二</div>
+    </div>
+  </div>
+  <div class="p-body">
+    <div class="p-group">
+      <div class="p-label">教育</div>
+      <div class="p-val compact">中山大学 · 金融学 本科</div>
+    </div>
+    <div class="p-group">
+      <div class="p-label">实习</div>
+      <div class="p-val compact"><strong>华泰证券</strong> 投行部 · 2025.06-09</div>
+    </div>
+    <div class="p-group">
+      <div class="p-label">技能 & 证书</div>
+      <div class="tags">
+        <span class="tag p">Python</span><span class="tag p">SQL</span><span class="tag p">Wind</span>
+        <span class="tag g">CFA L1</span><span class="tag g">证券从业</span>
+      </div>
+    </div>
+    <div class="p-group">
+      <div class="p-label">求职目标</div>
+      <div class="tags">
+        <span class="tag goal">🎯 投行</span>
+        <span class="tag g">PE（备选）</span>
+      </div>
+    </div>
+    <div class="p-group">
+      <div class="p-label">待提升</div>
+      <div class="gap-row">买方实习经历</div>
+      <div class="gap-row">Python 建模能力</div>
+    </div>
+  </div>
+  <div class="p-foot">
+    <button class="btn-up" onclick="alert('模拟上传简历')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      上传简历
+    </button>
+  </div>
+</aside>
+
+<!-- RIGHT: CHAT -->
+<main class="chat">
+  <div class="c-top">
+    <div class="c-ai-avatar">🎓</div>
+    <div><div class="c-title">求职导航官</div><div class="c-sub">47位校友经历 · 在线</div></div>
+  </div>
+
+  <div class="c-msgs" id="msgs">
+    <!-- Welcome -->
+    <div class="msg ai">
+      <div class="m-av ai">🎓</div>
+      <div class="m-bub">
+        张宏明你好！简历已解析 👋<br>
+        <span class="hl">投行方向</span> + 华泰实习，起点不错。<br>
+        你想了解什么？
+      </div>
+    </div>
+    <!-- Quick actions -->
+    <div class="msg ai">
+      <div class="m-av ai">🎓</div>
+      <div class="m-bub">
+        <div class="m-actions">
+          <button class="m-act" onclick="sendQuick('相似背景校友去了哪些投行？')">🔍 相似背景校友路径</button>
+          <button class="m-act" onclick="sendQuick('帮我诊断简历差距')">📋 简历诊断</button>
+          <button class="m-act" onclick="sendQuick('接下来该怎么规划？')">🗺️ 求职时间规划</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c-input-area">
+    <div class="c-input-row">
+      <textarea class="c-input" id="inp" placeholder="输入你的问题..." rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}"></textarea>
+      <button class="c-send" onclick="send()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9"/></svg>
+      </button>
+    </div>
+    <div class="c-chips">
+      <button class="c-chip" onclick="sendQuick('匹配校友')">🔍 匹配校友</button>
+      <button class="c-chip" onclick="sendQuick('简历诊断')">📋 诊断</button>
+      <button class="c-chip" onclick="sendQuick('求职规划')">🗺️ 规划</button>
+      <button class="c-chip" onclick="sendQuick('模拟面试')">💬 面试</button>
+    </div>
+  </div>
+</main>
+
+<script>
+function send() {
+  const t = document.getElementById('inp').value.trim();
+  if (!t) return;
+  document.getElementById('inp').value = '';
+  addMe(t); setTimeout(() => reply(t), 500);
+}
+function sendQuick(t) { addMe(t); setTimeout(() => reply(t), 500); }
+function addMe(t) {
+  const d = document.createElement('div'); d.className = 'msg me';
+  d.innerHTML = `<div class="m-av me">张</div><div class="m-bub">${t}</div>`;
+  document.getElementById('msgs').appendChild(d); scroll();
+}
+function reply(q) {
+  let r = '';
+  if (q.includes('校友') || q.includes('投行') || q.includes('路径')) {
+    r = `匹配到 <strong>3 位校友：</strong><br>
+      <div class="m-card"><strong>李学长</strong> · 金融硕2023 <span class="score">87%</span><br>中信行研 → 中金投行 → PE投资经理</div>
+      <div class="m-card"><strong>王学姐</strong> · 会计硕2022 <span class="score">72%</span><br>四大审计 → 华泰联合投行</div>
+      <div class="m-card"><strong>陈学长</strong> · 金融硕2023 <span class="score">68%</span><br>券商行研 → 中金投行</div>
+      点击卡片查看完整经历？`;
+  } else if (q.includes('规划') || q.includes('时间')) {
+    r = `<strong>📅 研二下（当前）</strong><br>→ 报名 CFA L2 · Kaggle 金融建模<br>→ 准备暑期实习面试<br><br>
+      <strong>📅 研二暑假</strong><br>→ 投行暑期实习（<span class="hl">校友中80%留用</span>）<br><br>
+      <strong>📅 研三上</strong><br>→ 秋招 + 内推 · 英语口语强化`;
+  } else if (q.includes('诊断') || q.includes('差') || q.includes('简历')) {
+    r = `对比目标岗位校友：<br><br>
+      ✅ 金融专业 · 华泰投行实习<br>
+      ❌ CPA（3位中2位有）· 量化项目 · 内推渠道<br><br>
+      📋 建议：考CPA一门 + Kaggle项目 + 拓展校友网络`;
+  } else {
+    r = `收到。关于「${q}」，我来检索校友数据...<br><br>知识库覆盖 <strong>投行、PE、咨询、四大</strong> 方向。试试「进中金需要什么条件？」或「PE和投行怎么选？」`;
+  }
+  const d = document.createElement('div'); d.className = 'msg ai';
+  d.innerHTML = `<div class="m-av ai">🎓</div><div class="m-bub">${r}</div>`;
+  document.getElementById('msgs').appendChild(d); scroll();
+}
+function scroll() {
+  const c = document.getElementById('msgs');
+  setTimeout(() => c.scrollTop = c.scrollHeight, 50);
+}
+document.getElementById('inp').addEventListener('input', function() {
+  this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>求职导航 - 变体B：专业学术风</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cuhk-purple: #5B2D8E;
+    --cuhk-purple-dark: #3E1A66;
+    --sfi-gold: #D4A843;
+    --sfi-gold-dark: #A67C28;
+    --bg-page: #F5F3F7;
+    --bg-dark: #1E1330;
+    --bg-card: #FFFFFF;
+    --text-primary: #1A1523;
+    --text-secondary: #6B6080;
+    --border: #E4DFED;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 3px rgba(91,45,142,0.06);
+    --shadow-md: 0 4px 16px rgba(91,45,142,0.1);
+    --font-display: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+    --font-body: 'Noto Sans SC', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+  }
+
+  /* ===== LEFT PROFILE - Professional Edition ===== */
+  .profile-panel {
+    width: 340px;
+    min-width: 340px;
+    background: var(--bg-dark);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 24px rgba(30,19,48,0.15);
+    z-index: 10;
+  }
+  .profile-top-bar {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .logo-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .logo-line {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+  }
+  .logo-line.cuhk { color: #B794D4; }
+  .logo-line.sfi { 
+    color: var(--sfi-gold);
+    font-size: 9px;
+  }
+  .profile-top-bar .divider {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--sfi-gold), transparent);
+    border-radius: 1px;
+  }
+  .profile-identity {
+    padding: 24px 20px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .avatar-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--cuhk-purple), #8B5CAA);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 300;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .identity-info h3 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .identity-info .subtitle {
+    font-size: 11px;
+    color: #B794D4;
+    margin-top: 2px;
+  }
+  .identity-info .meta-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+  .profile-sections {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 0;
+  }
+  .psection {
+    padding: 12px 20px;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .psection:hover {
+    border-left-color: var(--sfi-gold);
+    background: rgba(255,255,255,0.04);
+  }
+  .psection-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8B7AA0;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .psection-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .psection-content {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.85);
+  }
+  .psection-content .detail {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+  .chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px 4px 2px 0;
+  }
+  .chip.purple { background: rgba(139,92,170,0.3); color: #D4B8E8; }
+  .chip.gold { background: rgba(212,168,67,0.2); color: #E8C96A; }
+  .chip.primary { 
+    background: var(--sfi-gold); 
+    color: var(--bg-dark);
+    font-weight: 600;
+  }
+  .psection .confidence-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+  .confidence-dot.high { background: #4ADE80; }
+  .confidence-dot.medium { background: var(--sfi-gold); }
+  .confidence-dot.low { background: #F87171; }
+  .profile-bottom-action {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .btn-primary-dark {
+    width: 100%;
+    padding: 12px;
+    background: var(--sfi-gold);
+    color: var(--bg-dark);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+  }
+  .btn-primary-dark:hover {
+    background: #E0B84E;
+    transform: translateY(-1px);
+  }
+
+  /* ===== RIGHT CHAT PANEL ===== */
+  .chat-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: white;
+  }
+  .chat-topbar {
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+  }
+  .ai-icon-sm {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--cuhk-purple), var(--sfi-gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .chat-topbar-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .chat-topbar-info span {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .chat-topbar .stats-pill {
+    margin-left: auto;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: var(--bg-page);
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: #FAFAFC;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(91,45,142,0.03) 0%, transparent 60%);
+  }
+  .msg {
+    display: flex;
+    gap: 14px;
+    max-width: 75%;
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .msg.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+  .msg-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+  .msg-avatar.ai { 
+    background: linear-gradient(135deg, var(--cuhk-purple), var(--sfi-gold));
+    color: white;
+  }
+  .msg-avatar.user-av {
+    background: var(--bg-dark);
+    color: var(--sfi-gold);
+    font-weight: 700;
+  }
+  .msg-bubble {
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    letter-spacing: -0.1px;
+  }
+  .msg.ai .msg-bubble {
+    background: white;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    border-top-left-radius: 4px;
+  }
+  .msg.user .msg-bubble {
+    background: var(--cuhk-purple);
+    color: white;
+    border-top-right-radius: 4px;
+    box-shadow: var(--shadow-md);
+  }
+  .msg-bubble .hi {
+    background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(91,45,142,0.1));
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: var(--sfi-gold-dark);
+  }
+  .result-card {
+    display: block;
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: var(--bg-page);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    line-height: 1.5;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .result-card:hover {
+    border-color: var(--cuhk-purple);
+    box-shadow: var(--shadow-md);
+  }
+  .result-card .rank {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cuhk-purple);
+    margin-bottom: 3px;
+  }
+  .result-card .match-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--sfi-gold);
+    color: white;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 4px 0;
+  }
+  .typing-indicator span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #B794D4;
+    animation: bounce 1.4s infinite ease-in-out;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,80%,100% { transform: scale(0.6); } 40% { transform: scale(1); } }
+
+  .chat-composer {
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+  .composer-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .composer-input {
+    flex: 1;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    transition: all 0.2s;
+    background: #FAFAFC;
+    line-height: 1.4;
+  }
+  .composer-input:focus {
+    border-color: var(--cuhk-purple);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(91,45,142,0.06);
+  }
+  .btn-send-pro {
+    width: 46px; height: 46px;
+    border-radius: 14px;
+    border: none;
+    background: var(--cuhk-purple);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-send-pro:hover {
+    background: var(--cuhk-purple-dark);
+    transform: scale(1.04);
+  }
+  .quick-chips {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .quick-chip {
+    font-size: 12px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: inherit;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .quick-chip:hover {
+    border-color: var(--cuhk-purple);
+    color: var(--cuhk-purple);
+    background: rgba(91,45,142,0.03);
+  }
+
+  @media (max-width: 768px) {
+    .profile-panel { display: none; }
+    .chat-messages { padding: 16px; }
+    .msg { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== LEFT: DARK PROFILE PANEL ====== -->
+<aside class="profile-panel">
+  <div class="profile-top-bar">
+    <div class="logo-stack">
+      <span class="logo-line cuhk">🇭🇰 香港中文大学（深圳）</span>
+      <span class="logo-line sfi">◆ 深圳高等金融研究院 SFI</span>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div class="profile-identity">
+    <div class="avatar-circle">张</div>
+    <div class="identity-info">
+      <h3>张宏明</h3>
+      <div class="subtitle">金融学硕士 · 研二</div>
+      <div class="meta-row">
+        <span>👤 男</span>
+        <span>🎂 24岁</span>
+        <span>📍 深圳</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-sections">
+    <div class="psection">
+      <div class="psection-title">教育背景 <span class="confidence-dot high"></span>95%</div>
+      <div class="psection-content">
+        中山大学 · 金融学 本科
+        <div class="detail">港中深 · 金融学硕士（在读）</div>
+      </div>
+    </div>
+
+    <div class="psection">
+      <div class="psection-title">实习经历 <span class="confidence-dot high"></span>90%</div>
+      <div class="psection-content">
+        <strong>华泰证券</strong> · 投资银行部
+        <div class="detail">暑期实习 · 2025.06–09</div>
+        <div class="detail">IPO尽调 / 行业研究报告撰写</div>
+      </div>
+    </div>
+
+    <div class="psection">
+      <div class="psection-title">技能 & 证书</div>
+      <div class="psection-content">
+        <span class="chip purple">Python</span>
+        <span class="chip purple">SQL</span>
+        <span class="chip purple">Wind</span>
+        <span class="chip gold">CFA L1</span>
+        <span class="chip gold">证券从业</span>
+      </div>
+    </div>
+
+    <div class="psection">
+      <div class="psection-title">求职目标 <span class="confidence-dot medium"></span>70%</div>
+      <div class="psection-content">
+        <span class="chip primary">🎯 投行方向</span>
+        <span class="chip gold" style="opacity:0.7;">PE（备选）</span>
+      </div>
+    </div>
+
+    <div class="psection">
+      <div class="psection-title">待提升</div>
+      <div class="psection-content" style="color:rgba(255,255,255,0.55);font-size:12px;">
+        ⚠ 缺少买方实习 &nbsp; ⚠ Python建模能力
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-bottom-action">
+    <button class="btn-primary-dark" onclick="alert('模拟：上传简历')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      上传 / 更新简历
+    </button>
+  </div>
+</aside>
+
+<!-- ====== RIGHT: CHAT PANEL ====== -->
+<main class="chat-panel">
+  <div class="chat-topbar">
+    <div class="ai-icon-sm">🎓</div>
+    <div class="chat-topbar-info">
+      <h4>求职导航官</h4>
+      <span>基于 47 位校友真实经历</span>
+    </div>
+    <div class="stats-pill">💬 对话 #3 · 今日</div>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg ai">
+      <div class="msg-avatar ai">🎓</div>
+      <div class="msg-bubble">
+        张宏明你好！我是求职导航官。<br><br>
+        你的简历已解析完毕，左侧面板展示了你当前的画像。我看到你在<span class="hi">华泰证券投行部</span>有过不错的实习经历。<br><br>
+        有什么想聊的？比如看看类似背景的校友去了哪，或者帮你诊断简历差距。
+      </div>
+    </div>
+
+    <div class="msg ai">
+      <div class="msg-avatar ai">🎓</div>
+      <div class="msg-bubble">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="quick-chip" onclick="sendQuick('有没有类似背景的校友去了投行？')" style="width:100%;text-align:left;">
+            🔍 相似背景的校友路径
+          </button>
+          <button class="quick-chip" onclick="sendQuick('帮我诊断简历差距')" style="width:100%;text-align:left;">
+            📋 简历诊断 & 差距分析
+          </button>
+          <button class="quick-chip" onclick="sendQuick('研二下学期规划建议')" style="width:100%;text-align:left;">
+            🗺️ 求职时间规划
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-composer">
+    <div class="composer-row">
+      <textarea class="composer-input" id="chatInput" placeholder="输入你的求职问题..." rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+      <button class="btn-send-pro" onclick="sendMessage()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/>
+        </svg>
+      </button>
+    </div>
+    <div class="quick-chips">
+      <button class="quick-chip" onclick="sendQuick('匹配校友路径')">🔍 匹配校友</button>
+      <button class="quick-chip" onclick="sendQuick('简历诊断')">📋 简历诊断</button>
+      <button class="quick-chip" onclick="sendQuick('求职规划')">🗺️ 规划建议</button>
+      <button class="quick-chip" onclick="sendQuick('模拟面试')">💬 模拟面试</button>
+      <button class="quick-chip" onclick="sendQuick('PE和投行怎么选')">🤔 PE vs 投行</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    input.style.height = 'auto';
+    addUserMessage(text);
+    showTyping();
+    setTimeout(() => { removeTyping(); simulateAIResponse(text); }, 800);
+  }
+
+  function sendQuick(text) {
+    addUserMessage(text);
+    showTyping();
+    setTimeout(() => { removeTyping(); simulateAIResponse(text); }, 800);
+  }
+
+  function addUserMessage(text) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'msg user';
+    div.innerHTML = `<div class="msg-avatar user-av">张</div><div class="msg-bubble">${text}</div>`;
+    container.appendChild(div);
+    scrollDown();
+  }
+
+  function showTyping() {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'msg ai';
+    div.id = 'typingMsg';
+    div.innerHTML = `<div class="msg-avatar ai">🎓</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+    container.appendChild(div);
+    scrollDown();
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typingMsg');
+    if (el) el.remove();
+  }
+
+  function simulateAIResponse(text) {
+    const container = document.getElementById('chatMessages');
+    let reply = '';
+
+    if (text.includes('校友') || text.includes('投行') || text.includes('路径')) {
+      reply = `根据你的画像，匹配到 <strong>3 位校友：</strong><br><br>
+        <div class="result-card" style="border-left:3px solid var(--sfi-gold);">
+          <div class="rank">🥇 最佳匹配 <span class="match-badge">87%</span></div>
+          <strong>李学长</strong> · 金融硕 2023届<br>
+          中信行研 → 中金投行 → PE投资经理<br>
+          <span style="color:var(--text-secondary);font-size:12px;">GPA 3.5 · 内推获面试 · 英语流利</span>
+        </div>
+        <div class="result-card">
+          <div class="rank">🥈 <span class="match-badge">72%</span></div>
+          <strong>王学姐</strong> · 会计硕 2022届<br>
+          四大审计 → 华泰联合投行
+        </div>
+        <div class="result-card">
+          <div class="rank">🥉 <span class="match-badge">68%</span></div>
+          <strong>陈学长</strong> · 金融硕 2023届<br>
+          券商行研 → 中金投行
+        </div>
+        点击卡片查看完整经历？`;
+    } else if (text.includes('规划') || text.includes('时间')) {
+      reply = `好的，根据校友经验为你梳理：<br><br>
+        <strong>📅 研二下学期（当前）</strong><br>
+        → 报名 CFA L2，暑期考试<br>
+        → 做一个量化建模项目（Kaggle）<br>
+        → 开始准备暑期实习面试<br><br>
+        <strong>📅 研二暑假</strong><br>
+        → 争取投行暑期实习（<span class="hi">关键：校友中80%通过暑期留用</span>）<br><br>
+        <strong>📅 研三上学期</strong><br>
+        → 秋招投递 + 内推<br>
+        → 英语口语强化（校友反馈面试全英文）`;
+    } else if (text.includes('诊断') || text.includes('差') || text.includes('简历')) {
+      reply = `对比目标岗位校友画像：<br><br>
+        ✅ <strong>已有优势</strong><br>
+        · 金融专业对口 · 华泰投行实习<br><br>
+        ❌ <strong>需要补足</strong><br>
+        · CPA（3位中2位有）<br>
+        · 量化项目经验<br>
+        · 内推渠道（2位校友通过内推获面试）<br><br>
+        📋 <strong>建议：</strong>下学期考 CPA 一门 + Kaggle项目 + 拓展校友网络`;
+    } else {
+      reply = `收到。关于「${text}」，让我从校友知识库中检索...<br><br>
+        目前知识库覆盖 <strong>投行、PE、咨询、四大、商业银行</strong> 等方向。你可以试试更具体的问题，比如「进中金需要什么条件」「PE和投行怎么选」「咨询面试怎么准备」。`;
+    }
+
+    const div = document.createElement('div');
+    div.className = 'msg ai';
+    div.innerHTML = `<div class="msg-avatar ai">🎓</div><div class="msg-bubble">${reply}</div>`;
+    container.appendChild(div);
+    scrollDown();
+  }
+
+  function scrollDown() {
+    const container = document.getElementById('chatMessages');
+    setTimeout(() => { container.scrollTop = container.scrollHeight; }, 50);
+  }
+
+  document.getElementById('chatInput').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+</script>
+</body>
+</html>
