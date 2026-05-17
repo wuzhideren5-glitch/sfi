@@ -1,0 +1,523 @@
+[
+  {
+    "name": "喇睿萌",
+    "program": "会计理学硕士",
+    "graduation_year": 2018,
+    "undergrad": "吉林大学 金融专业",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "海通证券研究所",
+        "role": "卖方行研实习生",
+        "duration": "6个月以上"
+      },
+      {
+        "company": "天风证券研究所",
+        "role": "卖方行研实习生",
+        "duration": "6个月以上"
+      },
+      {
+        "company": "长城证券研究所",
+        "role": "卖方行研实习生",
+        "duration": "6个月以上"
+      },
+      {
+        "company": "中泰证券研究所",
+        "role": "卖方行研实习生",
+        "duration": "6个月以上"
+      }
+    ],
+    "certificates": [],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "华西证券研究所"
+    },
+    "career_path": [
+      {
+        "company": "华西证券研究所",
+        "role": "卖方行研",
+        "period": "现就职"
+      }
+    ],
+    "insights": [
+      "多与同学互换信息，可能某个瞬间的信息互换就能让自己下定决心选择职业方向",
+      "坚持非常重要，很多同学熬到春招甚至五六月份才拿到offer，越坚持越顺利",
+      "实习中要注重职业化水平、耐心细心和自主性，与带教老师建立信任"
+    ],
+    "tags": [
+      "卖方行研",
+      "金融",
+      "实习",
+      "校友资源",
+      "CPA",
+      "CFA",
+      "北交所",
+      "REITs"
+    ],
+    "source_doc": "2025 03学长学姐面对面｜5年深....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "谢润达",
+    "program": "会计理学硕士",
+    "graduation_year": 2024,
+    "undergrad": "重庆大学 会计学(ACCA方向)",
+    "gpa": null,
+    "internships": [],
+    "certificates": [],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "国内某知名公募基金香港子公司-基金会计岗"
+    },
+    "career_path": [
+      {
+        "company": "国内某知名公募基金香港子公司",
+        "role": "基金会计岗",
+        "period": "现就职"
+      }
+    ],
+    "insights": [
+      "求职归根结底是一个面向自己的历程，没有必要比较相似背景的学长姐或同学，要根据自己的求职环境磨砺能力，找寻真正属于自己的选择。",
+      "基金会计工作有信息壁垒，了解后投递可增加优势，结合粤语能力和IANG签证可主动选择香港岗位。",
+      "暑期实习需斟酌是否参加，避免因留用答辩拉长战线而压缩秋招空间，秋招获得理想工作的机会不一定低于暑期留用。"
+    ],
+    "tags": [
+      "会计",
+      "基金会计",
+      "公募基金",
+      "香港",
+      "投行",
+      "秋招",
+      "实习",
+      "证书",
+      "沟通能力"
+    ],
+    "source_doc": "2025 11学长学姐面对面｜“求职....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "刘钊华",
+    "program": "会计理学硕士",
+    "graduation_year": 2025,
+    "undergrad": "中央民族大学 会计学",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "广发基金",
+        "role": "基金会计",
+        "duration": null
+      },
+      {
+        "company": "平安证券",
+        "role": "投行ABS/REITs",
+        "duration": null
+      },
+      {
+        "company": "华泰联合证券",
+        "role": "投行股权",
+        "duration": null
+      },
+      {
+        "company": "民生证券",
+        "role": "投行股权",
+        "duration": null
+      },
+      {
+        "company": "国信证券",
+        "role": "投行股权",
+        "duration": null
+      }
+    ],
+    "certificates": [
+      "CPA通过三门(会计、审计、经济法)",
+      "证券从业资格证",
+      "初级会计职称"
+    ],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [
+        {
+          "company": "头部险企总部",
+          "role": "财务部",
+          "location": null,
+          "salary": null
+        }
+      ],
+      "final_choice": "头部险企总部财务部"
+    },
+    "career_path": [
+      {
+        "company": "头部险企总部",
+        "role": "财务部",
+        "period": null
+      }
+    ],
+    "insights": [
+      "读研阶段纠结0.1~0.3的绩点差异其实意义不大，按自己的节奏并跟着自己的兴趣选课，反而能学得更深入",
+      "核心是‘稳重’，财务专业素养最核心的体现，简历要梳理得有逻辑、有结构，面试要提前准备好高频问题的回复，展现大方自信的状态",
+      "财务行业的数字化转型，本质是‘技术重塑财务价值’，核心不再是‘会不会记账’，而是‘能不能用技术把财务数据变成决策价值’"
+    ],
+    "tags": [
+      "会计",
+      "财务",
+      "险企",
+      "数字化转型",
+      "AI",
+      "投行",
+      "CPA",
+      "秋招",
+      "复合型人才"
+    ],
+    "source_doc": "2025 12学长学姐面对面 _  ....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "李彦琳",
+    "program": "会计理学硕士",
+    "graduation_year": 2024,
+    "undergrad": "山东大学（威海） 会计学专业",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "毕马威",
+        "role": "地产审计",
+        "duration": null
+      },
+      {
+        "company": "东方证券",
+        "role": "投行",
+        "duration": null
+      },
+      {
+        "company": "兴证全球基金",
+        "role": "渠道销售",
+        "duration": null
+      },
+      {
+        "company": "富途证券",
+        "role": "社区运营",
+        "duration": null
+      }
+    ],
+    "certificates": [],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "华为财经-账务管理部"
+    },
+    "career_path": [
+      {
+        "company": "华为",
+        "role": "账务管理部",
+        "period": "现任职"
+      }
+    ],
+    "insights": [
+      "职业选择是逐步排除的过程，通过不断尝试不同岗位，剔除不匹配的方向",
+      "面试时追求‘行为对位’而非完全‘经历对口’，展现底层行为特质如坚韧平实、洞见心智、胸怀世界",
+      "面对压力面试，回归基础准则，清晰表达思考过程，展现逻辑推演而非追求标准答案"
+    ],
+    "tags": [
+      "华为财经",
+      "会计",
+      "审计",
+      "投行",
+      "基金销售",
+      "互联网运营",
+      "职业探索",
+      "行为面试",
+      "压力面试"
+    ],
+    "source_doc": "2025 12学长学姐面对面 _ 职....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "周佳音",
+    "program": "会计理学硕士-会计分析方向",
+    "graduation_year": 2024,
+    "undergrad": "北京科技大学 会计学",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "广发证券",
+        "role": "IPO日常实习",
+        "duration": "第二学期开始"
+      },
+      {
+        "company": "四大",
+        "role": "IPO项目实习",
+        "duration": "本科期间"
+      }
+    ],
+    "certificates": [
+      "证券从业资格证",
+      "HKICPA"
+    ],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "某证券公司-资本市场部"
+    },
+    "career_path": [
+      {
+        "company": "某证券公司",
+        "role": "资本市场部-证券发行岗",
+        "period": "现任职"
+      }
+    ],
+    "insights": [
+      "实习深度比数量更重要，但方向不宜过度集中，避免求职受限",
+      "考证要明确与职业方向的匹配度，理性评估性价比，不要死磕",
+      "选择两年毕业更合适，第一学期适应环境，第二学期开始实习，暑期实习后全力求职"
+    ],
+    "tags": [
+      "投行",
+      "债券一级市场",
+      "资本市场部",
+      "会计分析",
+      "实习留用",
+      "曲线救国"
+    ],
+    "source_doc": "2025 12学长学姐面对面 _ 规....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "朱梓萌",
+    "program": "会计理学硕士",
+    "graduation_year": 2025,
+    "undergrad": "辽宁大学 会计学",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "中金",
+        "role": "实习",
+        "duration": null
+      },
+      {
+        "company": "公募基金公司",
+        "role": "实习",
+        "duration": null
+      },
+      {
+        "company": "四大",
+        "role": "实习",
+        "duration": null
+      },
+      {
+        "company": "咨询公司",
+        "role": "实习",
+        "duration": null
+      }
+    ],
+    "certificates": [],
+    "job_search": {
+      "applications_count": "20",
+      "interviews_count": null,
+      "offers": [
+        {
+          "company": "小米香港",
+          "role": "手机GTM",
+          "location": "香港",
+          "salary": null
+        }
+      ],
+      "final_choice": "小米香港，手机GTM岗位"
+    },
+    "career_path": [
+      {
+        "company": "小米香港",
+        "role": "手机GTM",
+        "period": "现职"
+      }
+    ],
+    "insights": [
+      "不必执着于某个特定的终点，允许自己先漂浮在空中，飘向任何一个方向。",
+      "通过实际经历来确定自己的道路，避免对岗位的刻板印象。",
+      "短期发展岗位更重要，长期发展需向目标行业靠拢，构建行业壁垒。"
+    ],
+    "tags": [
+      "会计",
+      "GTM",
+      "小米",
+      "香港",
+      "实习",
+      "精准投递",
+      "粤语",
+      "业财融合"
+    ],
+    "source_doc": "图片朱梓萌会计理学硕士项目23级....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "张艺",
+    "program": "会计理学硕士",
+    "graduation_year": 2023,
+    "undergrad": "四川大学 会计学",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "兴业证券研究所",
+        "role": "策略组实习生",
+        "duration": null
+      },
+      {
+        "company": "海通证券研究所（现国泰海通）",
+        "role": "通信组实习生",
+        "duration": null
+      },
+      {
+        "company": "某二级私募",
+        "role": "实习生",
+        "duration": null
+      }
+    ],
+    "certificates": [],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "某二级私募-研究部负责人"
+    },
+    "career_path": [
+      {
+        "company": "某二级私募",
+        "role": "研究员",
+        "period": null
+      },
+      {
+        "company": "某二级私募",
+        "role": "研究部负责人",
+        "period": null
+      }
+    ],
+    "insights": [
+      "尽早明确目标，避免在不必要的事情上消耗精力，将时间投入到实习、行业研究和拓展视野中。",
+      "实习尽量选择线下，能接触核心业务并建立真实人际连接，线上实习容易沦为小黑工。",
+      "找到自己喜欢的事，再围绕它补齐能力。"
+    ],
+    "tags": [
+      "会计",
+      "私募",
+      "二级市场",
+      "投资研究",
+      "线下实习",
+      "校友推荐"
+    ],
+    "source_doc": "学长学姐面对面 _ 会计人“闯....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "罗黎",
+    "program": "会计理学硕士",
+    "graduation_year": 2021,
+    "undergrad": "上海交通大学 英语专业（金融商务实务方向）",
+    "gpa": null,
+    "internships": [],
+    "certificates": [
+      "ACCA（英国特许公认会计师）"
+    ],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "深圳国家高技术产业创新中心"
+    },
+    "career_path": [
+      {
+        "company": "毕马威会计师事务所",
+        "role": "全职工作",
+        "period": null
+      },
+      {
+        "company": "深圳国家高技术产业创新中心",
+        "role": "研究员/产品经理",
+        "period": "现任职"
+      }
+    ],
+    "insights": [
+      "跨专业申请者需通过证书或课程补足核心知识，构建逻辑自洽的故事，展示原有背景的赋能作用",
+      "职业选择前需自问工作节奏偏好、专长发挥方式、成长定义，通过官方渠道、人际网络、亲身感知获取信息",
+      "硕士阶段应分阶段规划：第一年探索筑基，第二年聚焦深化，第三年冲刺收割"
+    ],
+    "tags": [
+      "泛体制内",
+      "智库",
+      "事业单位",
+      "产业研究",
+      "会计分析",
+      "跨界",
+      "ACCA",
+      "深圳"
+    ],
+    "source_doc": "学长学姐面对面 _ 职场人读研....docx",
+    "_embedding_dim": 1024
+  },
+  {
+    "name": "Layne Lin",
+    "program": "会计理学硕士",
+    "graduation_year": null,
+    "undergrad": "理工科背景",
+    "gpa": null,
+    "internships": [
+      {
+        "company": "税务方向",
+        "role": "实习",
+        "duration": null
+      },
+      {
+        "company": "券商方向",
+        "role": "实习",
+        "duration": null
+      },
+      {
+        "company": "银行方向",
+        "role": "实习",
+        "duration": null
+      }
+    ],
+    "certificates": [
+      "日本贸易实务",
+      "日商簿记2级"
+    ],
+    "job_search": {
+      "applications_count": null,
+      "interviews_count": null,
+      "offers": [],
+      "final_choice": "物流公司战略财务部"
+    },
+    "career_path": [
+      {
+        "company": "物流公司",
+        "role": "战略财务部",
+        "period": null
+      }
+    ],
+    "insights": [
+      "跨专业背景是差异化标签，应主动展示转型动机和跨界执行力",
+      "考取行业核心证书是量化自证方式，能传递自我驱动力",
+      "尽早建立买方心态，用真金白银投资实践打磨决策模型",
+      "在不确定性中保持客观和独立思考，财商是贯穿人生的底层操作系统",
+      "AI时代跨学科视角是降维破局的利器，能形成不可替代的护城河"
+    ],
+    "tags": [
+      "战略财务",
+      "业财融合",
+      "复合背景",
+      "理工科+会计",
+      "跨专业求职",
+      "港股投资",
+      "财务分析",
+      "供应链",
+      "AI赋能"
+    ],
+    "source_doc": "投资实践与我的专业学习之间，是....docx",
+    "_embedding_dim": 1024
+  }
+]

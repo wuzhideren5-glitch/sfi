@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.log
+*.db
+personal_kb/sessions.db
+kb_data/kb_vectors.json
+
+# Node
+node_modules/
+.next/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Large binary files
+*.npy
+*.pkl
+*.bin
