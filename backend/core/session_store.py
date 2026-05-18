@@ -63,6 +63,7 @@ class SessionManager:
 
     @staticmethod
     def create(user_id: str = TEST_USER_ID, title: str = "") -> dict:
+        init_db()
         conn = _get_conn()
         now = time.time()
         cur = conn.execute(
@@ -76,6 +77,7 @@ class SessionManager:
 
     @staticmethod
     def list_sessions(user_id: str = TEST_USER_ID) -> list[dict]:
+        init_db()
         conn = _get_conn()
         rows = conn.execute(
             """SELECT s.id, s.title, s.started_at, s.updated_at,
@@ -101,6 +103,7 @@ class SessionManager:
 
     @staticmethod
     def update_title(session_id: int, title: str):
+        init_db()
         conn = _get_conn()
         conn.execute("UPDATE sessions SET title = ? WHERE id = ?", (title, session_id))
         conn.commit()
@@ -108,6 +111,7 @@ class SessionManager:
 
     @staticmethod
     def get_session(session_id: int) -> dict | None:
+        init_db()
         conn = _get_conn()
         row = conn.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
         conn.close()
@@ -117,6 +121,7 @@ class SessionManager:
 
     @staticmethod
     def delete_session(session_id: int):
+        init_db()
         conn = _get_conn()
         conn.execute("DELETE FROM turns WHERE session_id = ?", (session_id,))
         conn.execute("DELETE FROM sessions WHERE id = ?", (session_id,))

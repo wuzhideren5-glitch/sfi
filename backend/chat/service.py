@@ -62,11 +62,6 @@ class ChatService:
 
     def _get_manager(self, session_id: int) -> MemoryManager:
         if session_id not in self._managers:
-            # Evict oldest if over capacity
-            if len(self._managers) >= 50:
-                oldest = sorted(self._managers.keys())[:10]
-                for sid in oldest:
-                    del self._managers[sid]
             self._managers[session_id] = MemoryManager(session_id=session_id, user_id=TEST_USER_ID)
         return self._managers[session_id]
 
