@@ -49,6 +49,10 @@ class MemoryManager:
     def get_recent_history(self, n: int = 30) -> list[dict]:
         return self._store.get_recent_turns(n)
 
+    def get_user_recent_history(self, n: int = 30) -> list[dict]:
+        """Recent turns across ALL sessions of this user (cross-session memory)."""
+        return self._store.get_user_recent_turns(n)
+
     def get_memory_count(self) -> int:
         return self._store.count_turns()
 

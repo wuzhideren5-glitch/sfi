@@ -216,6 +216,28 @@ class SessionStore:
             result.append({"role": r["role"], "content": r["content"]})
         return result
 
+    def get_user_recent_turns(self, n: int = 30) -> list[dict]:
+        """Get most recent turns across ALL sessions of this user (cross-session memory)."""
+        conn = _get_conn()
+        rows = conn.execute(
+            """SELECT t.role, t.content, t.session_id, t.created_at
+               FROM turns t
+               JOIN sessions s ON t.session_id = s.id
+               WHERE s.user_id = ?
+               ORDER BY t.created_at DESC
+               LIMIT ?""",
+            (self.user_id, n),
+        ).fetchall()
+        conn.close()
+        result = []
+        for r in reversed(rows):
+            result.append({
+                "role": r["role"],
+                "content": r["content"],
+                "session_id": r["session_id"]
+            })
+        return result
+
     def get_session_history(self) -> list[dict]:
         """Get ALL turns in this session (for frontend)."""
         conn = _get_conn()

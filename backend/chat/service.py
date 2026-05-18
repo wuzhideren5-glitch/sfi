@@ -195,12 +195,15 @@ class ChatService:
         if fts5_context:
             parts.append(fts5_context)
 
-        recent = memory.get_recent_history(30)
+        recent = memory.get_user_recent_history(30)
         if recent:
             lines = []
+            current_sid = memory._store.session_id
             for turn in recent:
                 role_label = "学生" if turn["role"] == "user" else "小苗老师"
-                lines.append(f"[{role_label}]：{turn['content'][:200]}")
+                sid = turn.get("session_id")
+                tag = f"[会话{sid}]" if sid and sid != current_sid else ""
+                lines.append(f"{tag}[{role_label}]：{turn['content'][:200]}")
             parts.append(
                 f"{MEMORY_FENCE_OPEN}\n最近 {len(recent)} 轮对话：\n" + "\n".join(lines) + f"\n{MEMORY_FENCE_CLOSE}"
             )
