@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from chat.router import router as chat_router
+from chat.session_router import router as session_router
 from config import settings
 from kb.router import router as kb_router
 from kb.upload_router import router as kb_upload_router
@@ -59,6 +60,7 @@ async def health_check() -> Dict[str, str]:
 
 
 app.include_router(chat_router, prefix="/api")
+app.include_router(session_router)
 app.include_router(profile_router, prefix="/api")
 app.include_router(kb_router, prefix="/api")
 app.include_router(kb_upload_router)

@@ -40,7 +40,7 @@ def rerank(
 
     Returns list of {index, relevance_score, document} sorted by score descending.
     """
-    client = get_client()
+    get_client()  # ensure initialized
 
     # Bailian rerank uses a different endpoint structure
     import httpx

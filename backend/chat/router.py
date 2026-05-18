@@ -11,5 +11,9 @@ service = ChatService()
 
 @router.post("/send", response_model=ChatResponse)
 async def send_message(req: ChatRequest) -> ChatResponse:
-    result = await service.send_message(req.message, req.history)
+    result = await service.send_message(
+        message=req.message,
+        session_id=req.session_id,
+        history=req.history,
+    )
     return ChatResponse(**result)

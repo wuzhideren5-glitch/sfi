@@ -5,7 +5,6 @@ Usage: python ingest_kb.py
 from __future__ import annotations
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -58,7 +57,7 @@ def parse_docx(path: Path) -> dict | None:
     full_text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
 
     if len(full_text) < 100:
-        print(f"    ⚠ 文档内容太短，跳过")
+        print("    ⚠ 文档内容太短，跳过")
         return None
 
     # Truncate to avoid token limits (~8000 chars)

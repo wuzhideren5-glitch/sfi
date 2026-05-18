@@ -107,7 +107,7 @@ async def parse_resume(file_bytes: bytes, filename: str) -> ParseResponse:
         return ParseResponse(
             filename=filename,
             status="error",
-            error=f"AI解析结果格式异常，请重试",
+            error="AI解析结果格式异常，请重试",
         )
     except Exception as e:
         logger.error("Parse error: %s", e)
