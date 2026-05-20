@@ -1,0 +1,36 @@
+# Zeabur multi-service deployment configuration
+# Docs: https://zeabur.com/docs/deploy/config-file
+
+services:
+  # ── PostgreSQL with pgvector extension ──
+  - name: postgres
+    type: postgres
+    extensions:
+      - vector
+    version: "16"
+
+  # ── FastAPI Backend ──
+  - name: backend
+    type: python
+    root: backend
+    port: 8000
+    start: uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
+    env:
+      # Zeabur auto-links postgres service: ${POSTGRES_DATABASE_URL}
+      DATABASE_URL: ${POSTGRES_DATABASE_URL:=postgresql+asyncpg://postgres:postgres@localhost:5432/career_ai}
+      # API keys (set in Zeabur dashboard → Environment Variables)
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      SERPER_API_KEY: ${SERPER_API_KEY:-}
+      JWT_SECRET: ${JWT_SECRET:-}
+      # CORS - will be updated after frontend deploys
+      CORS_ORIGINS: ${CORS_ORIGINS:-'["http://localhost:3000"]'}
+
+  # ── Next.js Frontend ──
+  - name: frontend
+    type: node
+    root: frontend
+    port: 3000
+    env:
+      # Points to the backend service URL (Zeabur auto-provides intra-project URLs)
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}

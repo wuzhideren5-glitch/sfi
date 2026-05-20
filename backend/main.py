@@ -66,3 +66,10 @@ app.include_router(kb_router, prefix="/api")
 app.include_router(kb_upload_router)
 app.include_router(matcher_router, prefix="/api")
 app.include_router(parser_router, prefix="/api")
+
+
+if __name__ == "__main__":
+    import os
+    import uvicorn
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
