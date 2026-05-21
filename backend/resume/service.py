@@ -20,6 +20,7 @@ from typing import Any, Dict, List, Optional
 from core.llm import chat as deepseek_chat
 from core.profile_store import ProfileStore
 from core.session_store import TEST_USER_ID
+from .format_store import OriginalStore
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +44,7 @@ class ResumeService:
 
     def __init__(self):
         self._store = ProfileStore(user_id=TEST_USER_ID)
+        self._orig_store = OriginalStore(user_id=TEST_USER_ID)
 
     # ═══════════════════════════════════════════════════════════
     # Read / Write
@@ -294,9 +296,21 @@ class ResumeService:
     # ═══════════════════════════════════════════════════════════
 
     def export_docx(self) -> bytes:
-        """Export resume as Word document."""
+        """Export resume as Word document — preserves original layout if available."""
+        # Use original format metadata if available
+        if self._orig_store.has_original():
+            replacements = {}
+            for rep in self._compute_text_replacements():
+                replacements[rep["old_text"]] = rep["new_text"]
+            return self._orig_store.export_docx_from_original(replacements)
+
+        # Fallback: build DOCX from markdown
+        return self._export_docx_from_md()
+
+    def _export_docx_from_md(self) -> bytes:
+        """Build DOCX from markdown resume (fallback when no original PDF)."""
         from docx import Document
-        from docx.shared import Pt, Inches, RGBColor
+        from docx.shared import Pt, Inches
         from docx.enum.text import WD_ALIGN_PARAGRAPH
 
         content = self.get_resume_text()
@@ -372,28 +386,77 @@ class ResumeService:
         return buffer.getvalue()
 
     def export_pdf(self) -> bytes:
-        """Export resume as PDF using markdown → HTML → PDF approach."""
+        """Export resume as PDF — preserves original formatting.
+
+        If original PDF exists, applies AI edits directly to it via PyMuPDF.
+        Otherwise falls back to markdown → PDF conversion.
+        """
+        # Use original PDF with text replacements if available
+        if self._orig_store.has_original():
+            return self._export_pdf_from_original()
+
+        # Fallback: markdown to PDF
         content = self.get_resume_text()
-
-        # Simple HTML conversion
-        html = self._md_to_html(content)
-
-        # Use PyMuPDF or a simple approach
         try:
-            # Try using weasyprint if available
             from weasyprint import HTML
-            return HTML(string=html).write_pdf()
+            return HTML(string=self._md_to_html(content)).write_pdf()
         except ImportError:
             pass
-
-        # Fallback: use reportlab
         try:
             return self._export_pdf_reportlab(content)
         except Exception:
             pass
-
-        # Last resort: return the markdown as text in a PDF
         return self._export_pdf_simple(content)
+
+    def _export_pdf_from_original(self) -> bytes:
+        """Apply AI edits to the original PDF, preserving all formatting."""
+        replacements = self._compute_text_replacements()
+        return self._orig_store.apply_text_replacements(replacements)
+
+    def _compute_text_replacements(self) -> list[dict]:
+        """Compare original format metadata with edited resume MD to find text changes."""
+        origin_blocks = self._orig_store.get_format_meta()
+        current_md = self.get_resume_text()
+        replacements = []
+
+        # Simple approach: for each block in original, check if it exists in current MD
+        # If not found (modified), try to find a similar block as replacement
+        for block in origin_blocks:
+            orig_text = block["text"].strip()
+            if not orig_text or len(orig_text) < 3:
+                continue
+            if orig_text in current_md:
+                continue  # unchanged
+
+            # Try to find a fuzzy match in the current MD
+            # Look for lines that share key words with the original
+            best_match = self._find_fuzzy_match(orig_text, current_md)
+            if best_match and best_match != orig_text:
+                replacements.append({"old_text": orig_text, "new_text": best_match})
+
+        return replacements
+
+    def _find_fuzzy_match(self, orig: str, current: str) -> str | None:
+        """Find a line in current MD that likely replaces orig."""
+        # Extract key words from original
+        orig_words = set(orig) - set(" ·|*#-：，。！？（）()")
+        if len(orig_words) < 3:
+            return None
+
+        best_score = 0
+        best_line = None
+        for line in current.split("\n"):
+            line = line.strip().lstrip("- *#").strip()
+            if not line:
+                continue
+            line_chars = set(line)
+            overlap = len(orig_words & line_chars)
+            # Require at least 30% overlap
+            if overlap > best_score and overlap / max(len(orig_words), 1) > 0.3:
+                best_score = overlap
+                best_line = line
+
+        return best_line
 
     def _md_to_html(self, md_text: str) -> str:
         """Convert markdown to basic HTML for PDF export."""

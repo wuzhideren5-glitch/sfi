@@ -106,8 +106,11 @@ async def parse_resume(file_bytes: bytes, filename: str) -> ParseResponse:
         try:
             store = ProfileStore(user_id=TEST_USER_ID)
             store.update_frontmatter(profile.model_dump())
+            # Build resume and save original file
             from resume.service import ResumeService
+            from resume.format_store import OriginalStore
             ResumeService().build_from_profile(profile.model_dump())
+            OriginalStore(user_id=TEST_USER_ID).save_original(file_bytes, filename)
         except Exception as e:
             logger.warning("Failed to write MD profile: %s", e)
 
