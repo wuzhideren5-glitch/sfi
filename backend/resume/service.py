@@ -51,8 +51,19 @@ class ResumeService:
     # ═══════════════════════════════════════════════════════════
 
     def get_resume_text(self) -> str:
-        """Get the full resume section from MD profile."""
-        return self._store.get_resume_section()
+        """Get the full resume section from MD profile, synced with profile data."""
+        resume = self._store.get_resume_section()
+        # Sync name with profile frontmatter
+        fm = self._store.get_frontmatter()
+        profile_name = fm.get("name", "")
+        if profile_name and resume:
+            # Update the top-level name heading
+            import re
+            old_name_match = re.match(r'^# (.+)$', resume, re.MULTILINE)
+            if old_name_match and old_name_match.group(1) != profile_name:
+                resume = re.sub(r'^# .+$', f'# {profile_name}', resume, count=1, flags=re.MULTILINE)
+                self._store.set_resume_section(resume)
+        return resume
 
     def set_resume_text(self, content: str):
         """Set/replace the full resume section."""
@@ -201,8 +212,24 @@ class ResumeService:
             logger.error("Resume edit failed: %s", e)
             return {"success": False, "error": f"AI编辑失败: {e}"}
 
+        section_map = {
+            "education": "教育背景",
+            "internships": "实习经历",
+            "projects": "项目经历",
+            "skills": "技能",
+            "certificates": "证书与资质",
+            "summary": "个人总结",
+        }
+        # Strip section heading if AI accidentally included it
+        section_heading = section_map.get(section, section)
+        for prefix in [f"## {section_heading}\n", f"## {section_heading}"]:
+            if after.startswith(prefix):
+                after = after[len(prefix):].strip()
+
         # Apply the edit back to the full resume
         new_resume = self._replace_section_content(full_resume, section, before, after, item_index)
+        # Deduplicate: remove repeated sections
+        new_resume = self._deduplicate_sections(new_resume)
         self.set_resume_text(new_resume)
 
         return {
@@ -276,9 +303,9 @@ class ResumeService:
                     new_section = "\n\n".join(items)
                     return full_resume[:m.start(1)] + new_section + full_resume[m.end(1):]
         else:
-            # Replace entire section
+            # Replace entire section (only first match)
             replacement = f"## {heading}\n{new_content}"
-            return re.sub(pattern, replacement, full_resume, flags=re.DOTALL)
+            return re.sub(pattern, replacement, full_resume, count=1, flags=re.DOTALL)
 
         return full_resume
 
@@ -290,6 +317,31 @@ class ResumeService:
             # Try splitting by blank lines
             items = [i.strip() for i in content.split('\n\n') if i.strip()]
         return items
+
+    def _deduplicate_sections(self, content: str) -> str:
+        """Remove duplicate ## sections from resume content."""
+        seen_headings = set()
+        lines = content.split('\n')
+        result = []
+        skip = False
+
+        for i, line in enumerate(lines):
+            if line.startswith('## '):
+                heading = line.strip()
+                if heading in seen_headings:
+                    skip = True  # Skip until next ## heading
+                    continue
+                seen_headings.add(heading)
+                skip = False
+            elif line.startswith('## '):
+                # Already handled above, but for clarity
+                skip = False
+            elif skip:
+                continue
+
+            result.append(line)
+
+        return '\n'.join(result)
 
     # ═══════════════════════════════════════════════════════════
     # Export

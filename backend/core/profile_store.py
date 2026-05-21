@@ -218,11 +218,13 @@ created_at: "{time.strftime('%Y-%m-%d %H:%M:%S')}"
     def update_insights(self, new_insights: str):
         """Replace the conversation insights section."""
         fm, body = self.read()
-        # Replace or insert insights section
-        pattern = re.escape(SECTION_INSIGHTS) + r'.*?(?=\n## |\Z)'
+        # Use same stop-heading logic as _extract_section
+        stop_set = self._PROFILE_SECTIONS - {SECTION_INSIGHTS}
+        stops = '|'.join(re.escape(h) for h in stop_set)
+        pattern = re.escape(SECTION_INSIGHTS) + r'\s*\n(.*?)(?=\n(?:' + stops + r')|\Z)'
         replacement = SECTION_INSIGHTS + "\n" + new_insights.strip()
         if re.search(SECTION_INSIGHTS, body):
-            body = re.sub(pattern, replacement, body, flags=re.DOTALL)
+            body = re.sub(pattern, replacement, body, count=1, flags=re.DOTALL)
         else:
             body += f"\n\n{replacement}"
 
@@ -242,10 +244,13 @@ created_at: "{time.strftime('%Y-%m-%d %H:%M:%S')}"
     def set_resume_section(self, content: str):
         """Set/replace the resume section."""
         fm, body = self.read()
-        pattern = re.escape(SECTION_RESUME) + r'.*?(?=\n## |\Z)'
+        # Use same stop-heading logic as _extract_section
+        stop_set = self._PROFILE_SECTIONS - {SECTION_RESUME}
+        stops = '|'.join(re.escape(h) for h in stop_set)
+        pattern = re.escape(SECTION_RESUME) + r'\s*\n(.*?)(?=\n(?:' + stops + r')|\Z)'
         replacement = SECTION_RESUME + "\n" + content.strip()
         if re.search(SECTION_RESUME, body):
-            body = re.sub(pattern, replacement, body, flags=re.DOTALL)
+            body = re.sub(pattern, replacement, body, count=1, flags=re.DOTALL)
         else:
             body += f"\n\n{replacement}"
         self.write(fm, body)
