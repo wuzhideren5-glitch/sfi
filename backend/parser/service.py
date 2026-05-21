@@ -8,6 +8,8 @@ import fitz  # PyMuPDF
 
 from core.llm import chat as deepseek_chat
 from core.profile_state import set_profile
+from core.profile_store import ProfileStore
+from core.session_store import TEST_USER_ID
 from .models import ParseResponse, ResumeProfile
 
 logger = logging.getLogger(__name__)
@@ -99,6 +101,15 @@ async def parse_resume(file_bytes: bytes, filename: str) -> ParseResponse:
 
         # Store in shared state for chat agent to use
         set_profile(profile.model_dump())
+
+        # Also write to MD profile archive (long-term memory)
+        try:
+            store = ProfileStore(user_id=TEST_USER_ID)
+            store.update_frontmatter(profile.model_dump())
+            from resume.service import ResumeService
+            ResumeService().build_from_profile(profile.model_dump())
+        except Exception as e:
+            logger.warning("Failed to write MD profile: %s", e)
 
         return ParseResponse(filename=filename, status="ok", profile=profile)
 

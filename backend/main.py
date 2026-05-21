@@ -16,6 +16,7 @@ from kb.upload_router import router as kb_upload_router
 from matcher.router import router as matcher_router
 from parser.router import router as parser_router
 from profile.router import router as profile_router
+from resume.router import router as resume_router
 
 
 logging.basicConfig(level=logging.INFO)
@@ -25,7 +26,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="CUHK Shenzhen Career AI Backend",
     description="Backend API gateway for the career AI assistant.",
-    version="0.1.0",
+    version="0.2.0",
 )
 
 app.add_middleware(
@@ -66,6 +67,7 @@ app.include_router(kb_router, prefix="/api")
 app.include_router(kb_upload_router)
 app.include_router(matcher_router, prefix="/api")
 app.include_router(parser_router, prefix="/api")
+app.include_router(resume_router, prefix="/api")
 
 
 if __name__ == "__main__":
